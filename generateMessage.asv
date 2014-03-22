@@ -1,0 +1,47 @@
+function[finalMessage] = generateMessage(image, text)
+% im =  squeeze(im2double(rgb2gray(imread(image))));
+    im =  squeeze(im2double(imread(image)));
+    [X,Y] = size(im);
+    
+    messageLength = length(text);
+    
+    columnDist = 1;
+    rowDist = 2;
+    howMany = 1;
+    % which columns?
+    im(1,Y) = columnDist;
+    
+    % which rows?
+    im(X,1) = rowDist;
+    
+    % How many in each column?
+    im(X, ceil(Y/2)) = howMany;
+    
+    % length of message
+    im(X,Y) = messageLength;
+
+%     for i = 1:messageLength
+%         textChar = letterToNumber(text(i));
+%     end
+    
+    count = 1;
+    test = zeros(size(im));
+    while j < Y
+        j = 1;
+        for i = 1:columnDist:howMany
+            test(i,j) = 1;
+            
+            if count == messageLength
+                j = Y + 1;
+                i = howMany
+                break;
+            end
+            
+            count = count + 1;
+         i   
+        end
+        j
+    end
+    
+    finalMessage = test;
+end
