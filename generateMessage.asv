@@ -1,13 +1,19 @@
-function[finalMessage] = generateMessage(image, text)
-% im =  squeeze(im2double(rgb2gray(imread(image))));
-    im =  squeeze(im2double(imread(image)));
+function[gen] = generateMessage(image, text)
+
+    if(ndims(image) > 1)
+        im =  squeeze(rgb2gray(imread(image)));
+    else
+        im =  squeeze(imread(image));
+    end
     [X,Y] = size(im);
     
     messageLength = length(text);
     
-    columnDist = 1;
-    rowDist = 2;
-    howMany = 1;
+    columnDist = 23;
+    howMany = 20;
+    rowDist = floor(Y/howMany);
+    
+    
     % which columns?
     im(1,Y) = columnDist;
     
@@ -20,28 +26,48 @@ function[finalMessage] = generateMessage(image, text)
     % length of message
     im(X,Y) = messageLength;
 
-%     for i = 1:messageLength
-%         textChar = letterToNumber(text(i));
-%     end
-    
-    count = 1;
-    test = zeros(size(im));
-    while j < Y
-        j = 1;
-        for i = 1:columnDist:howMany
-            test(i,j) = 1;
-            
-            if count == messageLength
-                j = Y + 1;
-                i = howMany
-                break;
-            end
-            
-            count = count + 1;
-         i   
-        end
-        j
+    for i = 1:messageLength
+        textChar(i) = uint8(text(i));
     end
     
-    finalMessage = test;
+    count = 1;
+    columnCount = 1;
+   % test = zeros(10, 10);
+ %   [X, Y] = size(test);
+    
+    % While there are chars to be written into the picture
+    while count <= messageLength
+        
+        % Starts at columnpixel 1;
+        column = columnDist*(columnCount - 1) + 1;
+        
+        % Write as many as we have desided in the column
+        rowCount = 1;
+        row = rowDist*(rowCount - 1) + 1;
+        
+        while row < Y
+           
+            % Add character
+            if count <= messageLength
+                im(row,column) = textChar(count);
+                gen(count,:) = [row, column];
+%                 column = column
+%                 row = row
+%                 m = 'added'
+            end
+            
+            % New character added - increase count
+            rowCount = rowCount + 1;
+            row = rowDist*(rowCount - 1) + 1;
+            count = count + 1;
+        end
+        
+        % Column complete - increase columnCount
+        columnCount = columnCount + 1;
+    end
+
+    imshow(im);
+    imsave
+%     imsave(im);
+%     finalMessage = im;
 end

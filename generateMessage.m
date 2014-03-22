@@ -9,8 +9,8 @@ function[] = generateMessage(image, text)
     
     messageLength = length(text);
     
-    columnDist = 23;
-    howMany = 20;
+    columnDist = 13;
+    howMany = 14;
     rowDist = floor(Y/howMany);
     
     
@@ -44,11 +44,13 @@ function[] = generateMessage(image, text)
         % Write as many as we have desided in the column
         rowCount = 1;
         row = rowDist*(rowCount - 1) + 1;
+        
         while row < Y
            
             % Add character
             if count <= messageLength
                 im(row,column) = textChar(count);
+                gen(count,:) = [row, column];
 %                 column = column
 %                 row = row
 %                 m = 'added'
