@@ -4,13 +4,13 @@ function[finalMessage] = readMessage(image)
     [X,Y] = size(im);
 
     % which columns?
-    columnDist = im(1,Y)
+    columnDist = im(1,Y);
     
     % which rows?
-    rowDist = im(X,1)
+    rowDist = im(X,1);
     
     % How many in each column?
-    howMany = im(X, ceil(Y/2))
+    howMany = im(X, ceil(Y/2));
     
     % length of message
     messageLength = im(X,Y);
@@ -28,7 +28,7 @@ function[finalMessage] = readMessage(image)
         % Write as many as we have desided in the column
         rowCount = 1;
         row = rowDist*(rowCount - 1) + 1;
-        while row < Y && rowCount < howMany + messageLength
+        while row < Y && rowCount < howMany
             % Add character
             if count <= messageLength       
                 val = im(row,column);

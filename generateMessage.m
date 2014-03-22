@@ -1,5 +1,5 @@
 function[] = generateMessage(image, text)
-    ndims(image)
+
     if(ndims(image) > 1)
         im =  squeeze(rgb2gray(imread(image)));
     else
@@ -9,9 +9,9 @@ function[] = generateMessage(image, text)
     
     messageLength = length(text);
     
-    columnDist = 50;
+    columnDist = 23;
     howMany = 20;
-    rowDist = floor(mod(Y,howMany));
+    rowDist = floor(Y/howMany);
     
     
     % which columns?
@@ -27,7 +27,7 @@ function[] = generateMessage(image, text)
     im(X,Y) = messageLength;
 
     for i = 1:messageLength
-        textChar(i) = letterToNumber(text(i));
+        textChar(i) = uint8(text(i));
     end
     
     count = 1;
